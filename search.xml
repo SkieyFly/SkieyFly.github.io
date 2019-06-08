@@ -8,7 +8,7 @@
       <link href="/2019/06/08/test/"/>
       <url>/2019/06/08/test/</url>
       
-        <content type="html"><![CDATA[<p>$\LaTeX$<br>$\sum_{i=1}^n \frac{1}{i}$</p>]]></content>
+        <content type="html"><![CDATA[<p>提高组Day1T1难度sb题。</p><p>设$1\sim x+1$直接上目标观景台，缆车在第$y$个观景台。</p><p>有：</p><script type="math/tex; mode=display">cost=a\sum_{i=1}^{x} i+a\sum_{i=1}^{n-y} i+b\sum_{i=1}^{y-x-2} i</script><p>化简得：</p><script type="math/tex; mode=display">cost=\frac{a+b}{2}x^2-bxy+\frac{a+b}{2}y^2+\frac{a+3b}{2}x-\frac{2an+a+3b}{2}y+\frac{an^2+an+2b}{2}</script><p>对$x$求导：</p><script type="math/tex; mode=display">(a+b)x-by+\frac{a+3b}{2}=0</script><p>对$y$求导：</p><script type="math/tex; mode=display">-bx+(a+b)y-\frac{2an+a+3b}{2}=0</script><p>得：</p><script type="math/tex; mode=display">\begin{cases} x=\frac{2bn-a-3b}{2a+4b} \\ y=\frac{2an+2bn+a+3b}{2a+4b}\end{cases}</script><p>由于可能不为整数，所以取整的时候最好枚举$4$组，并注意满足$0\le x\le y \le n$。</p><p>当然这种方法可能有些复杂，你也可以发现$x+y=n$进而写出更加简洁优秀的代码！</p>]]></content>
       
       
       

@@ -138,7 +138,7 @@
 			
 				<div class="m_search">
 					<form name="searchform" class="form u-search-form">
-						<input type="text" class="input u-search-input" placeholder="搜索">
+						<input type="text" class="input u-search-input" placeholder="Search">
 						<i class="icon fas fa-search fa-fw"></i>
 					</form>
 				</div>
@@ -304,7 +304,15 @@
 
   <section class="article typo">
     <div class="article-entry" itemprop="articleBody">
-      <p>$\LaTeX$<br>$\sum_{i=1}^n \frac{1}{i}$</p>
+      <p>提高组Day1T1难度sb题。</p>
+<p>设$1\sim x+1$直接上目标观景台，缆车在第$y$个观景台。</p>
+<p>有：</p>
+<script type="math/tex; mode=display">cost=a\sum_{i=1}^{x} i+a\sum_{i=1}^{n-y} i+b\sum_{i=1}^{y-x-2} i</script><p>化简得：</p>
+<script type="math/tex; mode=display">cost=\frac{a+b}{2}x^2-bxy+\frac{a+b}{2}y^2+\frac{a+3b}{2}x-\frac{2an+a+3b}{2}y+\frac{an^2+an+2b}{2}</script><p>对$x$求导：</p>
+<script type="math/tex; mode=display">(a+b)x-by+\frac{a+3b}{2}=0</script><p>对$y$求导：</p>
+<script type="math/tex; mode=display">-bx+(a+b)y-\frac{2an+a+3b}{2}=0</script><p>得：</p>
+<script type="math/tex; mode=display">\begin{cases} x=\frac{2bn-a-3b}{2a+4b} \\ y=\frac{2an+2bn+a+3b}{2a+4b}\end{cases}</script><p>由于可能不为整数，所以取整的时候最好枚举$4$组，并注意满足$0\le x\le y \le n$。</p>
+<p>当然这种方法可能有些复杂，你也可以发现$x+y=n$进而写出更加简洁优秀的代码！</p>
 
       
     </div>
@@ -655,19 +663,19 @@
     </div>
   
   <br>
-  <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+  <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
 </div>
   <div>
-    本站使用
+    Use
     <a href="https://xaoxuu.com/wiki/material-x/" target="_blank" class="codename">Material X</a>
-    作为主题
+    as theme
     
-      ，
-      总访问量为
+      , 
+      total visits
       <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
-      次
+      times
     
-    。
+    . 
   </div>
 </footer>
 <script>setLoadingBarProgress(80);</script>
@@ -818,15 +826,15 @@
 <!-- 复制 -->
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
 <script>
-  let COPY_SUCCESS = "复制成功";
-  let COPY_FAILURE = "复制失败";
+  let COPY_SUCCESS = "Copied";
+  let COPY_FAILURE = "Copy failed";
   /*页面载入完成后，创建复制按钮*/
   !function (e, t, a) {
     /* code */
     var initCopyCode = function(){
       var copyHtml = '';
       copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
-      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '  <i class="fa fa-copy"></i><span>Copy</span>';
       copyHtml += '</button>';
       $(".highlight .code pre").before(copyHtml);
       var clipboard = new ClipboardJS('.btn-copy', {
