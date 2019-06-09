@@ -227,6 +227,8 @@
         
           
         
+          
+        
       
     
     
@@ -244,7 +246,101 @@
       
         
   <h2 class="title">
-    <a href="/2019/06/08/hdu6051 If the starlight never fade/">
+    <a href="/2019/06/09/cf521E-Cycling-City/">
+      cf521E Cycling City
+    </a>
+  </h2>
+
+
+      
+      <div class="new-meta-box">
+        
+          
+        
+          
+            
+  <div class="new-meta-item author">
+    <a href="http://SkieyFly.github.io" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>SkieyFly</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class="notlink">
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-06-09</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一张$n$点$m$边的无向图（无重边无自环），问是否有一对起点和出发点，存在三条在中途不交的简单路径，并给出方案。</p>
+<p>$n,m\le 2\times 10^5$。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>如果图是个仙人掌（不存在一条边在两个简单环中），那么不存在，否则是存在的。</p>
+<p>因为无向图环的特殊性（一条非树边和树链构成），所以画个图，考虑两个相交的环，公共部分链的端点就可以是起点终点。那么也易知可以得到三条路径。</p>
+<p>非树边覆盖的时候暴力覆盖是对的，因为每条边至多盖$1$次（否则就找到公共部分了）。</p>
+      
+        <div class="readmore">
+          <a href="/2019/06/09/cf521E-Cycling-City/" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class="post-wrapper">
+            <article class="post reveal ">
+  
+
+
+  <section class="meta">
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/2019/06/09/hdu6051-If-the-starlight-never-fade/">
       hdu6051 If the starlight never fade
     </a>
   </h2>
@@ -273,7 +369,7 @@
             <div class="new-meta-item date">
   <a class="notlink">
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-06-08</p>
+    <p>2019-06-09</p>
   </a>
 </div>
 
@@ -310,7 +406,7 @@
 <script type="math/tex; mode=display">(g^a+g^b)^i=g^{ai}\Rightarrow (1+g^{b-a})^i=1</script><p>令$g^k=1+g^{b-a}$，有$g^{ki}=1$，所以$ki\equiv 0\bmod (p-1)$，因此对于每个$i$，$k$一定是$\frac{p-1}{\gcd(i,p-1)}$的倍数，感性理解就是$k$至少应该包含$(p-1)$与$i$取$\gcd$后剩下的那些因数，继而这样的$k$有$\gcd(i-1,p-1)$个。</p>
       
         <div class="readmore">
-          <a href="/2019/06/08/hdu6051 If the starlight never fade/" class="flat-box">
+          <a href="/2019/06/09/hdu6051-If-the-starlight-never-fade/" class="flat-box">
             <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
             Read More
           </a>
