@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>luogu1954 [NOI2010]航空管制 | SkieyFly&#39;s Blog</title>
+  <title>cf843D Dynamic Shortest Path | SkieyFly&#39;s Blog</title>
   
   
 
@@ -232,8 +232,8 @@
         
   
     <h1 class="title">
-      <a href="/2019/06/09/luogu1954-NOI2010-航空管制/">
-        luogu1954 [NOI2010]航空管制
+      <a href="/2019/06/10/cf843D-Dynamic-Shortest-Path/">
+        cf843D Dynamic Shortest Path
       </a>
     </h1>
   
@@ -262,7 +262,7 @@
             <div class="new-meta-item date">
   <a class="notlink">
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-06-09</p>
+    <p>2019-06-10</p>
   </a>
 </div>
 
@@ -306,14 +306,31 @@
 
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
-          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定$n$个飞机起飞的最晚序号以及$m$个$a$要在$b$前飞的限制，给出一可行次序（保证有解）以及每个飞机最早起飞的序号（每个时刻只能飞一个）。</p>
-<p>$n\le 2000$，$m\le 10^4$。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>有一个套路，求最前的拓扑序比较难，所以建反图，求每个点最晚在什么时候拓扑到。</p>
-<p>这就很方便了。</p>
-<p>对于每个点求最晚，弹的时候，如果除它以外别的还能弹就弹（队列用优先队列，按照反过来后最早时间排，贪心思路）。</p>
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一张$n$点$m$边的有向带非负权图，共$q$个操作，支持以下两种：</p>
+<ul>
+<li><p>问$1$到$v$的最短路。</p>
+</li>
+<li><p>对于一些边边权$+1$。</p>
+</li>
+</ul>
+<p>$n,m\le 10^5$，$q\le 2000$。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>每次跑dijkstra肯定不行。</p>
+<p>有一种$O(m+w)$的最短路跑法，$w$是最短路长度。就是dijkstra的时候开个桶（<code>vector</code>）存放每种距离的点进行转移。</p>
+<p>由于这题修改边权只会$+1$，所以改变量并不是很大，因此考虑如何将上述算法加入。</p>
 <a id="more"></a>
-<h2 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h2><p>1.luogu貌似有点卡常，开了<code>O2</code>能过，不开过不了。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> sk() (putchar(<span class="meta-string">' '</span>))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ek() (putchar(<span class="meta-string">'\n'</span>))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 10005</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Read</span><span class="params">()</span></span>&#123;	</span><br><span class="line">	<span class="keyword">int</span> x=<span class="number">0</span>,flag=<span class="number">1</span>;<span class="keyword">char</span> ch=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (ch&lt;<span class="string">'0'</span>||ch&gt;<span class="string">'9'</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span> (ch==<span class="string">'-'</span>) flag=<span class="number">-1</span>;</span><br><span class="line">		ch=getchar();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (ch&gt;=<span class="string">'0'</span>&amp;&amp;ch&lt;=<span class="string">'9'</span>)&#123;</span><br><span class="line">		x=(x&lt;&lt;<span class="number">1</span>)+(x&lt;&lt;<span class="number">3</span>)+ch<span class="number">-48</span>;</span><br><span class="line">		ch=getchar();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> x*flag;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Write</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (x&lt;<span class="number">0</span>) x=-x,<span class="built_in">putchar</span>(<span class="string">'-'</span>);</span><br><span class="line">	<span class="keyword">if</span> (x&gt;<span class="number">9</span>) Write(x/<span class="number">10</span>);</span><br><span class="line">	<span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="number">48</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">int</span> edgenum,Edge[MAX&lt;&lt;<span class="number">1</span>],head[MAX],nxt[MAX&lt;&lt;<span class="number">1</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addedge</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">	Edge[++edgenum]=y;</span><br><span class="line">	nxt[edgenum]=head[x];</span><br><span class="line">	head[x]=edgenum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> ddl[MAX];</span><br><span class="line"><span class="keyword">int</span> cdeg[MAX],deg[MAX];</span><br><span class="line"><span class="keyword">int</span> ans[MAX];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x,ddl;</span><br><span class="line">	Node(<span class="keyword">int</span> xx=<span class="number">0</span>,<span class="keyword">int</span> dd=<span class="number">0</span>)&#123;</span><br><span class="line">		x=xx;ddl=dd;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (Node x,Node y)&#123;</span><br><span class="line">		<span class="keyword">return</span> x.ddl&gt;y.ddl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">priority_queue&lt;Node&gt; q;</span><br><span class="line"><span class="keyword">int</span> ord[MAX];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Sol</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) deg[i]=cdeg[i];</span><br><span class="line">	<span class="keyword">while</span> (!q.empty()) q.pop();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	  <span class="keyword">if</span> (!deg[i]) q.push(Node(i,ddl[i]));</span><br><span class="line">	<span class="keyword">int</span> t=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (!q.empty())&#123;</span><br><span class="line">		Node x=q.top();q.pop();</span><br><span class="line">		ord[++t]=x.x;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i=head[x.x];i;i=nxt[i])&#123;</span><br><span class="line">			<span class="keyword">int</span> tmp=Edge[i];</span><br><span class="line">			<span class="keyword">if</span> (!--deg[tmp]) q.push(Node(tmp,ddl[tmp]));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=n;i;i--)</span><br><span class="line">	  Write(ord[i]),(i==<span class="number">1</span>)? ek():sk();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">work</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) deg[i]=cdeg[i];</span><br><span class="line">	<span class="keyword">while</span> (!q.empty()) q.pop();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	  <span class="keyword">if</span> (!deg[i]) q.push(Node(i,ddl[i]));</span><br><span class="line">	<span class="keyword">int</span> t=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (!q.empty())&#123;</span><br><span class="line">		Node x=q.top();q.pop();</span><br><span class="line">		<span class="keyword">if</span> (x.x==s) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="comment">//先不弹 </span></span><br><span class="line">		<span class="keyword">if</span> (x.ddl&gt;t+<span class="number">1</span>)&#123;</span><br><span class="line">			ans[s]=n-t;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//如果实在没办法，别的点太早弹了，那只能弹s </span></span><br><span class="line">		t++;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i=head[x.x];i;i=nxt[i])&#123;</span><br><span class="line">			<span class="keyword">int</span> tmp=Edge[i];</span><br><span class="line">			<span class="keyword">if</span> (!--deg[tmp]) q.push(Node(tmp,ddl[tmp]));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	ans[s]=n-t;</span><br><span class="line">	<span class="comment">//或者不弹s就没点，队列就空了 </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	n=Read(),m=Read();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) ddl[i]=n-Read()+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">		<span class="keyword">int</span> x=Read(),y=Read();</span><br><span class="line">		addedge(y,x);cdeg[x]++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//反转 </span></span><br><span class="line">	Sol();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) work(i);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	  Write(ans[i]),(i==n)? ek():sk();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于一个有负权的图dijkstra是跑不了的，所以有一种方法是改变边权：</p>
+<script type="math/tex; mode=display">
+w(u,v)\rightarrow w(u,v)+h(u)-h(v)</script><p>这种改法最后会使得：</p>
+<script type="math/tex; mode=display">
+dis(u,v)\rightarrow dis(u,v)+h(u)-h(v)</script><p>因此不影响最短路。</p>
+<p>那么就要如何给点加权，其实点权就是源点到该点的最短路，因为最短路的三角不等式：</p>
+<script type="math/tex; mode=display">
+dis(v)\le dis(u)+w(u,v)</script><p>所以可以先用别的最短路求一遍，然后边权就非负了，就能用dijkstra跑任意两点的最短路了。</p>
+<p>然后这道题是用了还有一个好处，改完边权后，每个点到源点的最短路就是$0$。</p>
+<p>因此此题修改边权的时候，最后的最短路也不会超过$n$，就可以用$O(m+w)$的那个算法啦。每次用完后再改边权即可。</p>
+<p>时间复杂度$O(n\log n+qm)$。</p>
+<h2 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h2><p>无</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> sk() (putchar(<span class="meta-string">' '</span>))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ek() (putchar(<span class="meta-string">'\n'</span>))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 100005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INF 1e18</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Read</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> x=<span class="number">0</span>,flag=<span class="number">1</span>;<span class="keyword">char</span> ch=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (ch&lt;<span class="string">'0'</span>||ch&gt;<span class="string">'9'</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span> (ch==<span class="string">'-'</span>) flag=<span class="number">-1</span>;</span><br><span class="line">		ch=getchar();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (ch&gt;=<span class="string">'0'</span>&amp;&amp;ch&lt;=<span class="string">'9'</span>)&#123;</span><br><span class="line">		x=(x&lt;&lt;<span class="number">1</span>)+(x&lt;&lt;<span class="number">3</span>)+ch<span class="number">-48</span>;</span><br><span class="line">		ch=getchar();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> x*flag;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Write</span><span class="params">(LL x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (x&lt;<span class="number">0</span>) x=-x,<span class="built_in">putchar</span>(<span class="string">'-'</span>);</span><br><span class="line">	<span class="keyword">if</span> (x&gt;<span class="number">9</span>) Write(x/<span class="number">10</span>);</span><br><span class="line">	<span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="number">48</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n,m,k;</span><br><span class="line"><span class="keyword">int</span> edgenum,Edge[MAX],head[MAX],nxt[MAX];</span><br><span class="line">LL W[MAX];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addedge</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y,<span class="keyword">int</span> w)</span></span>&#123;</span><br><span class="line">	Edge[++edgenum]=y;</span><br><span class="line">	W[edgenum]=w;</span><br><span class="line">	nxt[edgenum]=head[x];</span><br><span class="line">	head[x]=edgenum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x;</span><br><span class="line">	LL d;</span><br><span class="line">	Node(<span class="keyword">int</span> xx=<span class="number">0</span>,LL dd=<span class="number">0</span>)&#123;</span><br><span class="line">		x=xx;d=dd;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (Node x,Node y)&#123;</span><br><span class="line">		<span class="keyword">return</span> x.d&gt;y.d;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">priority_queue&lt;Node&gt; q;</span><br><span class="line">LL Dis[MAX];</span><br><span class="line"><span class="keyword">bool</span> vis[MAX];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dij</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) Dis[i]=INF;</span><br><span class="line">	q.push(Node(<span class="number">1</span>,Dis[<span class="number">1</span>]=<span class="number">0</span>));</span><br><span class="line">	<span class="keyword">while</span> (!q.empty())&#123;</span><br><span class="line">		Node x=q.top();q.pop();</span><br><span class="line">		<span class="keyword">if</span> (vis[x.x]) <span class="keyword">continue</span>;</span><br><span class="line">		vis[x.x]=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i=head[x.x];i;i=nxt[i])&#123;</span><br><span class="line">			<span class="keyword">int</span> tmp=Edge[i];</span><br><span class="line">			<span class="keyword">if</span> (x.d+W[i]&lt;Dis[tmp])&#123;</span><br><span class="line">				Dis[tmp]=x.d+W[i];</span><br><span class="line">				q.push(Node(tmp,Dis[tmp]));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">LL dis[MAX];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; buck[MAX];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dij</span><span class="params">(<span class="keyword">int</span> lim)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) dis[i]=INF,vis[i]=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> now;</span><br><span class="line">	buck[dis[<span class="number">1</span>]=now=<span class="number">0</span>].push_back(<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">while</span> (now&lt;=lim)&#123;</span><br><span class="line">		<span class="keyword">if</span> (!buck[now].size())&#123;</span><br><span class="line">			now++;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> x=buck[now].back();buck[now].pop_back();</span><br><span class="line">		<span class="keyword">if</span> (vis[x]) <span class="keyword">continue</span>;</span><br><span class="line">		vis[x]=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i=head[x];i;i=nxt[i])&#123;</span><br><span class="line">			<span class="keyword">int</span> tmp=Edge[i];</span><br><span class="line">			<span class="keyword">if</span> (now+W[i]&lt;dis[tmp])&#123;</span><br><span class="line">				dis[tmp]=now+W[i];</span><br><span class="line">				<span class="keyword">if</span> (dis[tmp]&lt;=lim) buck[dis[tmp]].push_back(tmp);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	  <span class="keyword">for</span> (<span class="keyword">int</span> j=head[i];j;j=nxt[j])</span><br><span class="line">	    W[j]=W[j]+dis[i]-dis[Edge[j]];</span><br><span class="line">	<span class="comment">//每次改边权 </span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) Dis[i]=min(Dis[i]+dis[i],(LL)INF);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	n=Read(),m=Read(),k=Read();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">		<span class="keyword">int</span> x=Read(),y=Read(),w=Read();</span><br><span class="line">		addedge(x,y,w);</span><br><span class="line">	&#125;</span><br><span class="line">	Dij();</span><br><span class="line">	<span class="comment">//先跑一遍Dij </span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	  <span class="keyword">for</span> (<span class="keyword">int</span> j=head[i];j;j=nxt[j])</span><br><span class="line">	    W[j]=W[j]+Dis[i]-Dis[Edge[j]];</span><br><span class="line">	<span class="keyword">while</span> (k--)&#123;</span><br><span class="line">		<span class="keyword">int</span> op=Read();</span><br><span class="line">		<span class="keyword">if</span> (op==<span class="number">1</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> x=Read();</span><br><span class="line">			Write((Dis[x]&gt;=INF)? <span class="number">-1</span>:Dis[x]);ek();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">int</span> c=Read();</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=c;i++) W[Read()]++;</span><br><span class="line">			dij(c);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -325,10 +342,10 @@
     <div class="new-meta-box">
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-09T22:12:06+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-10T17:22:00+08:00">
   <a class="notlink">
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>last updated at Jun 9, 2019</p>
+    <p>last updated at Jun 10, 2019</p>
   </a>
 </div>
 
@@ -345,11 +362,17 @@
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=http://SkieyFly.github.io/2019/06/09/luogu1954-NOI2010-航空管制/&title=luogu1954 [NOI2010]航空管制 | SkieyFly's Blog&summary=题意给定$n$个飞机起飞的最晚序号以及$m$个$a$要在$b$前飞的限制，给出一可行次序（保证有解）以及每个飞机最早起飞的序号（每个时刻只能飞一个）。
-$n\le 2000$，$m\le 10^4$。
-思路有一个套路，求最前的拓扑序比较难，所以建反图，求每个点最晚在什么时候拓扑到。
-这就很方便了。
-对于每个点求最晚，弹的时候，如果除它以外别的还能弹就弹（队列用优先队列，按照反过来后最早时间排，贪心思路）。">
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=http://SkieyFly.github.io/2019/06/10/cf843D-Dynamic-Shortest-Path/&title=cf843D Dynamic Shortest Path | SkieyFly's Blog&summary=题意给定一张$n$点$m$边的有向带非负权图，共$q$个操作，支持以下两种：
+
+问$1$到$v$的最短路。
+
+对于一些边边权$+1$。
+
+
+$n,m\le 10^5$，$q\le 2000$。
+思路每次跑dijkstra肯定不行。
+有一种$O(m+w)$的最短路跑法，$w$是最短路长度。就是dijkstra的时候开个桶（vector）存放每种距离的点进行转移。
+由于这题修改边权只会$+1$，所以改变量并不是很大，因此考虑如何将上述算法加入。">
           
             <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
           
@@ -357,11 +380,17 @@ $n\le 2000$，$m\le 10^4$。
       
     
       
-        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://SkieyFly.github.io/2019/06/09/luogu1954-NOI2010-航空管制/&title=luogu1954 [NOI2010]航空管制 | SkieyFly's Blog&summary=题意给定$n$个飞机起飞的最晚序号以及$m$个$a$要在$b$前飞的限制，给出一可行次序（保证有解）以及每个飞机最早起飞的序号（每个时刻只能飞一个）。
-$n\le 2000$，$m\le 10^4$。
-思路有一个套路，求最前的拓扑序比较难，所以建反图，求每个点最晚在什么时候拓扑到。
-这就很方便了。
-对于每个点求最晚，弹的时候，如果除它以外别的还能弹就弹（队列用优先队列，按照反过来后最早时间排，贪心思路）。">
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://SkieyFly.github.io/2019/06/10/cf843D-Dynamic-Shortest-Path/&title=cf843D Dynamic Shortest Path | SkieyFly's Blog&summary=题意给定一张$n$点$m$边的有向带非负权图，共$q$个操作，支持以下两种：
+
+问$1$到$v$的最短路。
+
+对于一些边边权$+1$。
+
+
+$n,m\le 10^5$，$q\le 2000$。
+思路每次跑dijkstra肯定不行。
+有一种$O(m+w)$的最短路跑法，$w$是最短路长度。就是dijkstra的时候开个桶（vector）存放每种距离的点进行转移。
+由于这题修改边权只会$+1$，所以改变量并不是很大，因此考虑如何将上述算法加入。">
           
             <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
           
@@ -369,11 +398,17 @@ $n\le 2000$，$m\le 10^4$。
       
     
       
-        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=http://SkieyFly.github.io/2019/06/09/luogu1954-NOI2010-航空管制/&title=luogu1954 [NOI2010]航空管制 | SkieyFly's Blog&summary=题意给定$n$个飞机起飞的最晚序号以及$m$个$a$要在$b$前飞的限制，给出一可行次序（保证有解）以及每个飞机最早起飞的序号（每个时刻只能飞一个）。
-$n\le 2000$，$m\le 10^4$。
-思路有一个套路，求最前的拓扑序比较难，所以建反图，求每个点最晚在什么时候拓扑到。
-这就很方便了。
-对于每个点求最晚，弹的时候，如果除它以外别的还能弹就弹（队列用优先队列，按照反过来后最早时间排，贪心思路）。">
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=http://SkieyFly.github.io/2019/06/10/cf843D-Dynamic-Shortest-Path/&title=cf843D Dynamic Shortest Path | SkieyFly's Blog&summary=题意给定一张$n$点$m$边的有向带非负权图，共$q$个操作，支持以下两种：
+
+问$1$到$v$的最短路。
+
+对于一些边边权$+1$。
+
+
+$n,m\le 10^5$，$q\le 2000$。
+思路每次跑dijkstra肯定不行。
+有一种$O(m+w)$的最短路跑法，$w$是最短路长度。就是dijkstra的时候开个桶（vector）存放每种距离的点进行转移。
+由于这题修改边权只会$+1$，所以改变量并不是很大，因此考虑如何将上述算法加入。">
           
             <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
           
@@ -395,28 +430,14 @@ $n\le 2000$，$m\le 10^4$。
         
             <div class="prev-next">
                 
-                    <section class="prev">
-                        <span class="art-item-left">
-                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;Previous</h6>
-                            <h4>
-                                <a href="/2019/06/10/cf843D-Dynamic-Shortest-Path/" rel="prev" title="cf843D Dynamic Shortest Path">
-                                  
-                                      cf843D Dynamic Shortest Path
-                                  
-                                </a>
-                            </h4>
-                            
-                        </span>
-                    </section>
-                
                 
                     <section class="next">
                         <span class="art-item-right" aria-hidden="true">
                             <h6>Next&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                             <h4>
-                                <a href="/2019/06/09/hdu5215-Cycle/" rel="prev" title="hdu5215 Cycle">
+                                <a href="/2019/06/09/luogu1954-NOI2010-航空管制/" rel="prev" title="luogu1954 [NOI2010]航空管制">
                                     
-                                        hdu5215 Cycle
+                                        luogu1954 [NOI2010]航空管制
                                     
                                 </a>
                             </h4>
@@ -486,7 +507,7 @@ $n\le 2000$，$m\le 10^4$。
 
   <script>
     window.subData = {
-      title: 'luogu1954 [NOI2010]航空管制',
+      title: 'cf843D Dynamic Shortest Path',
       tools: true
     }
   </script>
