@@ -235,9 +235,105 @@
         
           
         
+          
+        
       
     
     
+      
+        
+          <div class="post-wrapper">
+            <article class="post reveal ">
+  
+
+
+  <section class="meta">
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/2019/06/12/cf547D-Mike-and-Fish/">
+      cf547D Mike and Fish
+    </a>
+  </h2>
+
+
+      
+      <div class="new-meta-box">
+        
+          
+        
+          
+            
+  <div class="new-meta-item author">
+    <a href="http://SkieyFly.github.io" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>SkieyFly</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class="notlink">
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-06-12</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>坐标系上有$n$个点，要求红蓝染色，使每一行每一列红的和蓝的相差不超过$1$。</p>
+<p>$n\le 2\times 10^5$，$1\le x_i,y_i\le 2\times 10^5$。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>根据套路，每个点就是一个二分图的连边。</p>
+<p>假设题目是要求红蓝都相等，考虑这是在干嘛。</p>
+<p>对于连结$u$的所有边，对其定向，如果是入边染红，出边染蓝。那么要求所有点红蓝数量相同，也就是入度等于出度——欧拉回路。</p>
+<p>也就是说我们跑一遍欧拉回路，就是在定向，也就是确定了每个点是红是蓝。</p>
+<p>再考虑至多相差$1$，就是欧拉回路在有奇点的情况下无解，所以可以加边再跑，最后不用管新加的边。</p>
+<p>连边就把奇点两两配对（由于度数和$=2e$，所以奇点也是偶数个）。</p>
+<h2 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h2><p>1.图依旧可能不连通</p>
+<p>2.跑欧拉回路一旦遍历完要马上删掉，不然复杂度是错的。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> sk() (putchar(<span class="meta-string">' '</span>))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ek() (putchar(<span class="meta-string">'\n'</span>))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 400005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Lim 400000</span></span><br><span class="line"><span class="comment">//注意点数 </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Read</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> x=<span class="number">0</span>,flag=<span class="number">1</span>;<span class="keyword">char</span> ch=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (ch&lt;<span class="string">'0'</span>||ch&gt;<span class="string">'9'</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span> (ch==<span class="string">'-'</span>) flag=<span class="number">-1</span>;</span><br><span class="line">		ch=getchar();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (ch&gt;=<span class="string">'0'</span>&amp;&amp;ch&lt;=<span class="string">'9'</span>)&#123;</span><br><span class="line">		x=(x&lt;&lt;<span class="number">1</span>)+(x&lt;&lt;<span class="number">3</span>)+ch<span class="number">-48</span>;</span><br><span class="line">		ch=getchar();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> x*flag;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Write</span><span class="params">(LL x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (x&lt;<span class="number">0</span>) x=-x,<span class="built_in">putchar</span>(<span class="string">'-'</span>);</span><br><span class="line">	<span class="keyword">if</span> (x&gt;<span class="number">9</span>) Write(x/<span class="number">10</span>);</span><br><span class="line">	<span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="number">48</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> deg[MAX];</span><br><span class="line"><span class="keyword">int</span> odd[MAX];</span><br><span class="line"><span class="keyword">int</span> edgenum,Edge[MAX&lt;&lt;<span class="number">1</span>],head[MAX],nxt[MAX&lt;&lt;<span class="number">1</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addedge</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">	Edge[++edgenum]=y;</span><br><span class="line">	nxt[edgenum]=head[x];</span><br><span class="line">	head[x]=edgenum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">bool</span> vis[MAX],ans[MAX];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">id</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (x+<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Euler</span><span class="params">(<span class="keyword">int</span> now)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=head[now];i;i=head[now])&#123;</span><br><span class="line">		head[now]=nxt[i];</span><br><span class="line">		<span class="comment">//在这里删，不能在递归后再删 </span></span><br><span class="line">		<span class="keyword">if</span> (vis[id(i)]) <span class="keyword">continue</span>;</span><br><span class="line">		vis[id(i)]=<span class="number">1</span>;</span><br><span class="line">		Euler(Edge[i]);</span><br><span class="line">		ans[id(i)]=i&amp;<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	n=Read();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		<span class="keyword">int</span> x=Read(),y=Read();</span><br><span class="line">		addedge(x,y+Lim/<span class="number">2</span>);addedge(y+Lim/<span class="number">2</span>,x);</span><br><span class="line">		deg[x]++;deg[y+Lim/<span class="number">2</span>]++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=Lim;i++)</span><br><span class="line">	  <span class="keyword">if</span> (deg[i]&amp;<span class="number">1</span>) odd[++cnt]=i;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=cnt/<span class="number">2</span>;i++)</span><br><span class="line">	  addedge(odd[i*<span class="number">2</span><span class="number">-1</span>],odd[i*<span class="number">2</span>]),addedge(odd[i*<span class="number">2</span>],odd[i*<span class="number">2</span><span class="number">-1</span>]);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=Lim;i++) Euler(i);</span><br><span class="line">	<span class="comment">//图可能不连通 </span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	  <span class="built_in">putchar</span>((ans[i])? <span class="string">'r'</span>:<span class="string">'b'</span>);</span><br><span class="line">	ek();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </section>
+</article>
+
+          </div>
+        
       
         
           <div class="post-wrapper">

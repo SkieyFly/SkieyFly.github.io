@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>SkieyFly&#39;s Blog</title>
+  <title>cf547D Mike and Fish | SkieyFly&#39;s Blog</title>
   
   
 
@@ -44,7 +44,7 @@
   
   
   <div class="cover-wrapper">
-    <cover class="cover  ">
+    <cover class="cover post half">
       
         
   <h1 class="title">SkieyFly's Blog</h1>
@@ -218,32 +218,10 @@
     <div class='body-wrapper'>
       <div class="l_main">
   
-  <section class="post-list">
-    
-      
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
+
   
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class="meta">
@@ -252,11 +230,13 @@
     <div class="meta" id="header-meta">
       
         
-  <h2 class="title">
-    <a href="/2019/06/12/cf547D-Mike-and-Fish/">
-      cf547D Mike and Fish
-    </a>
-  </h2>
+  
+    <h1 class="title">
+      <a href="/2019/06/12/cf547D-Mike-and-Fish/">
+        cf547D Mike and Fish
+      </a>
+    </h1>
+  
 
 
       
@@ -295,6 +275,19 @@
         
           
             
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class="notlink">
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
 
           
         
@@ -311,9 +304,9 @@
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>坐标系上有$n$个点，要求红蓝染色，使每一行每一列红的和蓝的相差不超过$1$。</p>
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>坐标系上有$n$个点，要求红蓝染色，使每一行每一列红的和蓝的相差不超过$1$。</p>
 <p>$n\le 2\times 10^5$，$1\le x_i,y_i\le 2\times 10^5$。</p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>根据套路，每个点就是一个二分图的连边。</p>
 <p>假设题目是要求红蓝都相等，考虑这是在干嘛。</p>
@@ -325,590 +318,111 @@
 <p>2.跑欧拉回路一旦遍历完要马上删掉，不然复杂度是错的。</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> sk() (putchar(<span class="meta-string">' '</span>))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ek() (putchar(<span class="meta-string">'\n'</span>))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 400005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Lim 400000</span></span><br><span class="line"><span class="comment">//注意点数 </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Read</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> x=<span class="number">0</span>,flag=<span class="number">1</span>;<span class="keyword">char</span> ch=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (ch&lt;<span class="string">'0'</span>||ch&gt;<span class="string">'9'</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span> (ch==<span class="string">'-'</span>) flag=<span class="number">-1</span>;</span><br><span class="line">		ch=getchar();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (ch&gt;=<span class="string">'0'</span>&amp;&amp;ch&lt;=<span class="string">'9'</span>)&#123;</span><br><span class="line">		x=(x&lt;&lt;<span class="number">1</span>)+(x&lt;&lt;<span class="number">3</span>)+ch<span class="number">-48</span>;</span><br><span class="line">		ch=getchar();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> x*flag;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Write</span><span class="params">(LL x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (x&lt;<span class="number">0</span>) x=-x,<span class="built_in">putchar</span>(<span class="string">'-'</span>);</span><br><span class="line">	<span class="keyword">if</span> (x&gt;<span class="number">9</span>) Write(x/<span class="number">10</span>);</span><br><span class="line">	<span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="number">48</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">int</span> deg[MAX];</span><br><span class="line"><span class="keyword">int</span> odd[MAX];</span><br><span class="line"><span class="keyword">int</span> edgenum,Edge[MAX&lt;&lt;<span class="number">1</span>],head[MAX],nxt[MAX&lt;&lt;<span class="number">1</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addedge</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">	Edge[++edgenum]=y;</span><br><span class="line">	nxt[edgenum]=head[x];</span><br><span class="line">	head[x]=edgenum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">bool</span> vis[MAX],ans[MAX];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">id</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (x+<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Euler</span><span class="params">(<span class="keyword">int</span> now)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=head[now];i;i=head[now])&#123;</span><br><span class="line">		head[now]=nxt[i];</span><br><span class="line">		<span class="comment">//在这里删，不能在递归后再删 </span></span><br><span class="line">		<span class="keyword">if</span> (vis[id(i)]) <span class="keyword">continue</span>;</span><br><span class="line">		vis[id(i)]=<span class="number">1</span>;</span><br><span class="line">		Euler(Edge[i]);</span><br><span class="line">		ans[id(i)]=i&amp;<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	n=Read();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		<span class="keyword">int</span> x=Read(),y=Read();</span><br><span class="line">		addedge(x,y+Lim/<span class="number">2</span>);addedge(y+Lim/<span class="number">2</span>,x);</span><br><span class="line">		deg[x]++;deg[y+Lim/<span class="number">2</span>]++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=Lim;i++)</span><br><span class="line">	  <span class="keyword">if</span> (deg[i]&amp;<span class="number">1</span>) odd[++cnt]=i;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=cnt/<span class="number">2</span>;i++)</span><br><span class="line">	  addedge(odd[i*<span class="number">2</span><span class="number">-1</span>],odd[i*<span class="number">2</span>]),addedge(odd[i*<span class="number">2</span>],odd[i*<span class="number">2</span><span class="number">-1</span>]);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=Lim;i++) Euler(i);</span><br><span class="line">	<span class="comment">//图可能不连通 </span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	  <span class="built_in">putchar</span>((ans[i])? <span class="string">'r'</span>:<span class="string">'b'</span>);</span><br><span class="line">	ek();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
-  
-
-
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/06/10/cf843D-Dynamic-Shortest-Path/">
-      cf843D Dynamic Shortest Path
-    </a>
-  </h2>
-
-
-      
-      <div class="new-meta-box">
-        
-          
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="http://SkieyFly.github.io" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>SkieyFly</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-06-10</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一张$n$点$m$边的有向带非负权图，共$q$个操作，支持以下两种：</p>
-<ul>
-<li><p>问$1$到$v$的最短路。</p>
-</li>
-<li><p>对于一些边边权$+1$。</p>
-</li>
-</ul>
-<p>$n,m\le 10^5$，$q\le 2000$。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>每次跑dijkstra肯定不行。</p>
-<p>有一种$O(m+w)$的最短路跑法，$w$是最短路长度。就是dijkstra的时候开个桶（<code>vector</code>）存放每种距离的点进行转移。</p>
-<p>由于这题修改边权只会$+1$，所以改变量并不是很大，因此考虑如何将上述算法加入。</p>
-      
-        <div class="readmore">
-          <a href="/2019/06/10/cf843D-Dynamic-Shortest-Path/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            Read More
-          </a>
         </div>
-      
-    </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
-  
-
-
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/06/09/luogu1954-NOI2010-航空管制/">
-      luogu1954 [NOI2010]航空管制
-    </a>
-  </h2>
-
-
-      
-      <div class="new-meta-box">
         
           
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="http://SkieyFly.github.io" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>SkieyFly</p>
-    </a>
-  </div>
 
 
-          
+  <section class="meta" id="footer-meta">
+    <hr>
+    <div class="new-meta-box">
+      
         
-          
-            <div class="new-meta-item date">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-06-12T14:54:33+08:00">
   <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-06-09</p>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>last updated at Jun 12, 2019</p>
   </a>
 </div>
 
-          
+        
+      
         
           
-            
 
-          
+        
+      
         
           
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定$n$个飞机起飞的最晚序号以及$m$个$a$要在$b$前飞的限制，给出一可行次序（保证有解）以及每个飞机最早起飞的序号（每个时刻只能飞一个）。</p>
-<p>$n\le 2000$，$m\le 10^4$。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>有一个套路，求最前的拓扑序比较难，所以建反图，求每个点最晚在什么时候拓扑到。</p>
-<p>这就很方便了。</p>
-<p>对于每个点求最晚，弹的时候，如果除它以外别的还能弹就弹（队列用优先队列，按照反过来后最早时间排，贪心思路）。</p>
-      
-        <div class="readmore">
-          <a href="/2019/06/09/luogu1954-NOI2010-航空管制/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            Read More
-          </a>
-        </div>
-      
-    </div>
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
-  </section>
-</article>
-
-          </div>
-        
       
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
-  
-
-
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/06/09/hdu5215-Cycle/">
-      hdu5215 Cycle
-    </a>
-  </h2>
-
-
-      
-      <div class="new-meta-box">
-        
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=http://SkieyFly.github.io/2019/06/12/cf547D-Mike-and-Fish/&title=cf547D Mike and Fish | SkieyFly's Blog&summary=">
           
-        
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
           
-            
-  <div class="new-meta-item author">
-    <a href="http://SkieyFly.github.io" rel="nofollow">
+        </a>
       
-        <i class="fas fa-user" aria-hidden="true"></i>
+    
       
-      <p>SkieyFly</p>
-    </a>
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://SkieyFly.github.io/2019/06/12/cf547D-Mike-and-Fish/&title=cf547D Mike and Fish | SkieyFly's Blog&summary=">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=http://SkieyFly.github.io/2019/06/12/cf547D-Mike-and-Fish/&title=cf547D Mike and Fish | SkieyFly's Blog&summary=">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
   </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-06-09</p>
-  </a>
 </div>
 
-          
-        
-          
-            
 
-          
-        
-          
-            
 
-          
         
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
       
     </div>
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一张$n$点$m$边的无向图，问是否存在奇环和偶环。</p>
-<p>$n\le 10^5$，$m\le 3\times 10^5$，$T\le 30$。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>是否有奇环就判是不是二分图（没有奇环肯定可以黑白染色，不能黑白染色就有奇环）。</p>
-<p>对于偶环，仍旧考虑dfs树和非树边，如果找到偶环就找到了，否则看奇环是否有交（这题中注意环可以经过重复点，所以是点覆盖不是边），有交的话，把公共部分去掉就是偶环了。</p>
-      
-        <div class="readmore">
-          <a href="/2019/06/09/hdu5215-Cycle/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-    
-  </section>
-</article>
+        
+        
+            <div class="prev-next">
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>Next&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/2019/06/10/cf843D-Dynamic-Shortest-Path/" rel="prev" title="cf843D Dynamic Shortest Path">
+                                    
+                                        cf843D Dynamic Shortest Path
+                                    
+                                </a>
+                            </h4>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+      </section>
+    </article>
+  
 
-          </div>
-        
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
   
 
 
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/06/09/cf521E-Cycling-City/">
-      cf521E Cycling City
-    </a>
-  </h2>
-
-
-      
-      <div class="new-meta-box">
-        
-          
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="http://SkieyFly.github.io" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>SkieyFly</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-06-09</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一张$n$点$m$边的无向图（无重边无自环），问是否有一对起点和出发点，存在三条在中途不交的简单路径，并给出方案。</p>
-<p>$n,m\le 2\times 10^5$。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>如果图是个仙人掌（不存在一条边在两个简单环中），那么不存在，否则是存在的。</p>
-<p>因为无向图环的特殊性（一条非树边和树链构成），所以画个图，考虑两个相交的环，公共部分链的端点就可以是起点终点。那么也易知可以得到三条路径。</p>
-<p>非树边覆盖的时候暴力覆盖是对的，因为每条边至多盖$1$次（否则就找到公共部分了）。</p>
-      
-        <div class="readmore">
-          <a href="/2019/06/09/cf521E-Cycling-City/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
   
 
 
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/06/09/hdu6051-If-the-starlight-never-fade/">
-      hdu6051 If the starlight never fade
-    </a>
-  </h2>
 
 
-      
-      <div class="new-meta-box">
-        
-          
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="http://SkieyFly.github.io" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>SkieyFly</p>
-    </a>
-  </div>
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
 
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-06-09</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定$n,p$，定义$f(i)$为满足$(x+y)^i\equiv x^i\bmod p$且$y\le n$的$(x,y)$的数量，求：</p>
-<script type="math/tex; mode=display">\sum_{i=1}^{p-1}i\times f(i)</script><p>$n\le p\le 10^9+7$。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>由于是质数，所以考虑用原根代换。令$x=g^a,y=g^b$，那么：</p>
-<script type="math/tex; mode=display">
-(g^a+g^b)^i=g^{ai}\Rightarrow (1+g^{b-a})^i=1</script><p>令$g^k=1+g^{b-a}$，有$g^{ki}=1$，所以$ki\equiv 0\bmod (p-1)$，因此对于每个$i$，$k$一定是$\frac{p-1}{\gcd(i,p-1)}$的倍数，感性理解就是$k$至少应该包含$(p-1)$与$i$取$\gcd$后剩下的那些因数，继而这样的$k$有$\gcd(i-1,p-1)$个。</p>
-      
-        <div class="readmore">
-          <a href="/2019/06/09/hdu6051-If-the-starlight-never-fade/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class="post-wrapper">
-            <article class="post reveal ">
-  
-
-
-  <section class="meta">
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2019/06/07/hello-world/">
-      Hello World
-    </a>
-  </h2>
-
-
-      
-      <div class="new-meta-box">
-        
-          
-        
-          
-            
-  <div class="new-meta-item author">
-    <a href="http://SkieyFly.github.io" rel="nofollow">
-      
-        <i class="fas fa-user" aria-hidden="true"></i>
-      
-      <p>SkieyFly</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class="notlink">
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-06-07</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-    
-    
-      <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+  <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     "HTML-CSS": {
@@ -944,9 +458,15 @@
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 
-    
 
-  
+
+
+  <script>
+    window.subData = {
+      title: 'cf547D Mike and Fish',
+      tools: true
+    }
+  </script>
 
 
 </div>
@@ -1001,6 +521,20 @@
           
           
             
+  <section class="widget toc-wrapper">
+    
+<header class="pure">
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;TOC</div>
+  
+    <div class="wrapper"><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class="content pure">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题意"><span class="toc-text">题意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#坑"><span class="toc-text">坑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li></ol>
+    </div>
+  </section>
+
 
           
         
